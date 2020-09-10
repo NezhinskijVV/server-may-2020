@@ -1,13 +1,13 @@
 import lombok.SneakyThrows;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Server {
+public class Server implements Observable {
     public static final int PORT = 8081;
+    private final List<Observer> observerList = new ArrayList<>();
 
     @SneakyThrows
     public void start() {
@@ -17,7 +17,33 @@ public class Server {
             Socket socket = serverSocket.accept();
 
             if (socket != null) {
-                new Thread(new ClientRunnable(socket)).start();
+                new Thread(new ClientRunnable(socket, this)).start();
+            }
+        }
+    }
+
+    @Override
+    public void addObserver(Observer obs) {
+        observerList.add(obs);
+    }
+
+    @Override
+    public void deleteObserver(Observer obs) {
+        observerList.remove(obs);
+    }
+
+    @Override
+    public void notifyObservers(String message) {
+        for (Observer observer : observerList) {
+            observer.notifyMe(message);
+        }
+    }
+
+    @Override
+    public void notifyObserversExceptObserver(String message, Observer exceptObserver) {
+        for (Observer observer : observerList) {
+            if (!observer.equals(exceptObserver)){
+                observer.notifyMe(message);
             }
         }
     }
