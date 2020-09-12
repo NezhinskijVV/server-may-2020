@@ -7,8 +7,8 @@ import java.sql.*;
 public class UserDaoImpl implements UserDao {
 
     public static final String url = "jdbc:MySQL://localhost:3306/my_schema_spt_2020?serverTimezone=UTC";
-    public static final String login = "root";
-    public static final String password = "12345678";
+    public static final String login = "";
+    public static final String password = "";
 
     @Override
     public User findByName(String name) {
