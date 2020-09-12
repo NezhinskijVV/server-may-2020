@@ -1,3 +1,5 @@
+package services;
+
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import model.User;

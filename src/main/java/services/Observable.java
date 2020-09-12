@@ -1,3 +1,5 @@
+package services;
+
 public interface Observable {
     void addObserver(Observer obs);
 
