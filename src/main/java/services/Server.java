@@ -1,6 +1,7 @@
 package services;
 
 import lombok.SneakyThrows;
+import utils.MessageSource;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,6 +14,7 @@ public class Server implements Observable {
 
     @SneakyThrows
     public void start() {
+        System.out.println(MessageSource.getMessage("server.start"));
         ServerSocket serverSocket = new ServerSocket(PORT);
 
         while (true) {

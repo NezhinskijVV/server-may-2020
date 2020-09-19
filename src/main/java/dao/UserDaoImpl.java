@@ -1,18 +1,18 @@
 package dao;
 
 import model.User;
+import utils.Props;
 
 import java.sql.*;
 
 public class UserDaoImpl implements UserDao {
-
-    public static final String url = "jdbc:MySQL://localhost:3306/my_schema_spt_2020?serverTimezone=UTC";
-    public static final String login = "";
-    public static final String password = "";
+    public static final String DB_URL = Props.getValue("db.url");
+    public static final String DB_LOGIN = Props.getValue("db.user");
+    public static final String DB_PASSWORD = Props.getValue("db.password");
 
     @Override
     public User findByName(String name) {
-        try (Connection connection = DriverManager.getConnection(url, login, password);
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);
              PreparedStatement preparedStatement = connection
                      .prepareStatement("select u.login, u.password from my_schema_spt_2020.users u where u.login = ?")) {
 
